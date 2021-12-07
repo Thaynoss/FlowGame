@@ -1,6 +1,5 @@
 package Vue;
 import Modele.Jeu;
-import Modele.ModeleCase;
 
 import javax.swing.*;
 
@@ -114,10 +113,12 @@ public class VueControleurGrille extends JFrame implements Observer{
                        
 
                         game.cheminEstVide();
-                        if (game.partieEstTerminee()) {
+                        if(game.partieEstTerminee()) {
+                            
                             System.exit(0);
                         }
-                        if(game.getChemin().RecupTailleChemin() == 1) { // coter modele
+
+                        if(game.getChemin().RecupTailleChemin() == 1) {
                             game.detruireChemin();
                         }
 
@@ -164,17 +165,6 @@ public class VueControleurGrille extends JFrame implements Observer{
             System.out.println("Chemin numero " + i + " : ");
             displayChemin(i);
         }
-    }
-
-
-    public static void main(String[] args) {
-
-        Jeu game = new Jeu(6,5);
-        VueControleurGrille vue = new VueControleurGrille(6,game);
-        vue.refresh();
-        game.addObserver(vue);
-        vue.setVisible(true);
-
     }
 
 }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import Modele.CaseType;
 import Modele.ModeleCase;
 
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -11,13 +12,11 @@ public class VueCase extends JPanel {
     private int x, y;
     private ModeleCase ModelC;
 
-
     //Constructeur de VueCase
     public VueCase(int _x, int _y) {
         this.x = _x;
         this.y = _y;
-
-        ModelC=new ModeleCase(x,y,CaseType.empty);
+        ModelC=new ModeleCase(x,y,CaseType.empty,0);
     }
 
     public void setModeleCase(ModeleCase ModelC) {
@@ -40,17 +39,17 @@ public class VueCase extends JPanel {
     // Verifie si la case contient un symbole de depart
     public boolean verifCaseSymbole() {
         return ModelC.isSymbole();
-    } // coter modele
+    }
 
     // Vérifie si la case est vide
     public boolean verifCaseVide() {
         return ModelC.isCaseEmpty();
-    } // coter modele
+    }
 
     // Verifie si la case contient un symbole de chemin
     public boolean verifCaseSymboleHorsS() {
         return ModelC.isCaseChemin();
-    } // coter modele
+    }
 
 
 
@@ -82,25 +81,24 @@ public class VueCase extends JPanel {
 
         switch(ModelC.type) {
             case S1 :
-                //System.out.println("S1");
                 g.setColor(Color.BLUE);
-                g.fillRect(getWidth()/4, getHeight()/4, getWidth()/2, getHeight()/2);
+                g.fillOval(getWidth()/3, getWidth()/3, getWidth()/3, getWidth()/3);
                 break;
             case S2 :
                 g.setColor(Color.RED);
-                g.fillRect(getWidth()/4, getHeight()/4, getWidth()/2, getHeight()/2);
+                g.fillOval(getWidth()/3, getWidth()/3, getWidth()/3, getWidth()/3);
                 break;
             case S3 :
                 g.setColor(Color.ORANGE);
-                g.fillRect(getWidth()/4, getHeight()/4, getWidth()/2, getHeight()/2);
+                g.fillOval(getWidth()/3, getWidth()/3, getWidth()/3, getWidth()/3);
                 break;
             case S4 :
                 g.setColor(Color.GREEN);
-                g.fillRect(getWidth()/4, getHeight()/4, getWidth()/2, getHeight()/2);
+                g.fillOval(getWidth()/3, getWidth()/3, getWidth()/3, getWidth()/3);
                 break;
             case S5 :
                 g.setColor(Color.YELLOW);
-                g.fillRect(getWidth()/4, getHeight()/4, getWidth()/2, getHeight()/2);
+                g.fillOval(getWidth()/3, getWidth()/3, getWidth()/3, getWidth()/3);
                 break;
             case h0v0 :
                 drawNine(g);

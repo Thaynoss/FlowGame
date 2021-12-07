@@ -9,18 +9,31 @@ import java.util.Observable;
 public class Jeu extends Observable {
     private Chemin cheminJeu[];
     private  ModeleCase [][] grilleLVL;
+    private CaseType[][] grilleGen;
+    private Level level;
     private int tailleGrilleLvl;
     private int nombreCheminLvl;
     private int index;
-    //private final int NbSymbolMax = 5;
+    private int lvl;
 
-
-    public Jeu( int tailleGrille, int nombreChemin) {
+    public Jeu( int tailleGrille, int nombreChemin,int num_lvl) {
         tailleGrilleLvl = tailleGrille;
         nombreCheminLvl = nombreChemin;
         index = 0;
+        lvl=num_lvl;
         cheminJeu = new Chemin[nombreCheminLvl];
         grilleLVL = new ModeleCase[tailleGrilleLvl][tailleGrilleLvl];
+
+        level = new Level(lvl); /////// C'est ici que le level est set par défaut
+        grilleGen = level.getGrille(lvl);
+
+
+        for(int i =0;i<tailleGrille;i++){
+            for(int j=0;j<tailleGrille;j++){
+                grilleLVL[i][j]=new ModeleCase(i,j,CaseType.empty,lvl);
+                grilleLVL[i][j].initGrilleLevelSymbole(grilleGen);
+            }
+        }      
         
         for (int i = 0; i < nombreCheminLvl; i++) {
             cheminJeu[i] = new Chemin();
@@ -28,15 +41,21 @@ public class Jeu extends Observable {
 
         for (int i = 0; i < tailleGrilleLvl; i++) {
             for (int j = 0; j < tailleGrilleLvl; j++) {
-                grilleLVL[i][j] = new ModeleCase(i, j, CaseType.empty);
+                grilleLVL[i][j] = new ModeleCase(i, j,CaseType.empty,lvl);
                 setChanged();
                 notifyObservers();
             }
         }
-        //GrilleInit(tailleGrilleLvl);
-        //CheminInit(nombreCheminLvl);
     }
 
+    public void setLevel(int num_lvl) {
+        lvl = num_lvl;
+    }
+
+    public int getLevel() {
+        System.out.println(lvl);
+        return lvl;
+    }
 
     public void CheminInit(int nbcl){
         for (int i = 0; i < nbcl ; i++) {
@@ -44,11 +63,10 @@ public class Jeu extends Observable {
         }
     }
 
-
     public void GrilleInit(int tailleGr) {
         for (int i = 0; i < tailleGr; i++) {
             for (int j = 0; j < tailleGr; j++) {
-                grilleLVL[i][j] = new ModeleCase(i, j, CaseType.empty);
+                grilleLVL[i][j] = new ModeleCase(i, j,CaseType.empty,lvl);
             }
         }
     }
@@ -144,36 +162,6 @@ public class Jeu extends Observable {
         }
     }
 
-    //verifie si le trajet est valide
-/*    public boolean VerificationvaliditéT (int el){
-        if (getModelCase(el).equals(getModelCase(getLongueurC() -1))){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-*/
-/*
-    public boolean cheminEstComplet(int i) {
-        boolean cheminFinit = false;
-        cheminFinit = cheminJeu[i].ValiderChemin();
-        return cheminFinit;
-    }
-*/
-    /*public boolean CaseDansChemin(ModeleCase caseM){
-        boolean DansChemin = false;
-        if(cheminEstComplet(0) && cheminJeu[0].RecupTailleChemin() > 1
-                && cheminJeu[0].RecupModCase(0).getCaseType() == caseM.getCaseType() ){
-            return DansChemin = true;
-        }
-        else{
-            return DansChemin;
-        }
-    }
-    */
-
-    //
     public void setJeuModeleCase(){
         if (cheminJeu[index].ValiderChemin()){
             grilleLVL[RecupCaseXJeu(getLongueurC()-2)][RecupCaseYJeu(getLongueurC()-2)].drawCase(getModelCase(getLongueurC() - 3),getModelCase(getLongueurC() - 1));
@@ -299,8 +287,8 @@ public class Jeu extends Observable {
     public boolean partieEstTerminee(){
         Boolean grilleFull = false;
 
-        for(int i = 0; i < tailleGrilleLvl; i++) {
-            for(int j = 0; j < tailleGrilleLvl; j++) {
+        for(int i = 0; i <tailleGrilleLvl; i++) {
+            for(int j = 0; j <tailleGrilleLvl; j++) {
                 if(grilleLVL[i][j].getCaseType() == CaseType.empty) {
                     grilleFull = false;
                 }

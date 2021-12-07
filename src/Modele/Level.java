@@ -1,6 +1,5 @@
 package Modele;
 
-import java.util.List; //list abstract class
 import java.util.ArrayList; //arraylist class
 
 public class Level{
@@ -12,7 +11,7 @@ public class Level{
     public int lvlSelectionner;
 
     public Level(int lvl_select){
-        lvl_select = lvlSelectionner;
+        lvlSelectionner = lvl_select;
         levels = new ArrayList<CaseType[][]>();
         grilleLevel1 = level1();
         grilleLevel2 = level2();
@@ -21,34 +20,31 @@ public class Level{
         levels.add(grilleLevel1);
         levels.add(grilleLevel2);
         levels.add(grilleLevel3);
-        getGrille(lvl_select);
-        //getGrilleTaille(lvl_select);
+        getGrille(lvlSelectionner);
     }
-
-
 
 
 
     private CaseType[][] level1() {
         CaseType [][] grilleLevel1 = {
-                {CaseType.empty,CaseType.S5,CaseType.empty,CaseType.S4,CaseType.S1,CaseType.S2},
-                {CaseType.empty,CaseType.empty,CaseType.empty,CaseType.S1,CaseType.empty,CaseType.empty},
-                {CaseType.S5,CaseType.empty,CaseType.S3,CaseType.empty,CaseType.empty,CaseType.empty},
-                {CaseType.S4,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty},
-                {CaseType.empty,CaseType.empty,CaseType.S2,CaseType.empty,CaseType.S3,CaseType.empty},
-                {CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty}
+                {CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.S2},
+                {CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty},
+                {CaseType.empty,CaseType.empty,CaseType.S5,CaseType.S4,CaseType.empty,CaseType.empty},
+                {CaseType.empty,CaseType.empty,CaseType.empty,CaseType.S3,CaseType.empty,CaseType.S5},
+                {CaseType.empty,CaseType.S3,CaseType.empty,CaseType.S2,CaseType.S4,CaseType.S1},
+                {CaseType.empty,CaseType.empty,CaseType.empty,CaseType.S1,CaseType.empty,CaseType.empty}
         };
         return grilleLevel1;
     }
 
     private CaseType[][] level2() {
         CaseType [][] grilleLevel2 = {
-                {CaseType.S2,CaseType.S5,CaseType.empty,CaseType.S4,CaseType.S1,CaseType.S2},
-                {CaseType.S2,CaseType.empty,CaseType.empty,CaseType.S1,CaseType.empty,CaseType.empty},
-                {CaseType.S5,CaseType.empty,CaseType.S3,CaseType.empty,CaseType.empty,CaseType.empty},
-                {CaseType.S4,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty},
-                {CaseType.empty,CaseType.S3,CaseType.S2,CaseType.empty,CaseType.S3,CaseType.empty},
-                {CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty}
+                {CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.S5},
+                {CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty,CaseType.empty},
+                {CaseType.empty,CaseType.S3,CaseType.S2,CaseType.empty,CaseType.empty,CaseType.empty},
+                {CaseType.S5,CaseType.empty,CaseType.empty,CaseType.S4,CaseType.empty,CaseType.empty},
+                {CaseType.S4,CaseType.empty,CaseType.empty,CaseType.S1,CaseType.S2,CaseType.empty},
+                {CaseType.S1,CaseType.empty,CaseType.empty,CaseType.S3,CaseType.empty,CaseType.empty}
 
         };
         return grilleLevel2;
@@ -56,18 +52,16 @@ public class Level{
 
     private CaseType[][] level3() {
         CaseType[][] grilleLevel3 = {
-                {CaseType.S2, CaseType.S5, CaseType.empty, CaseType.S4, CaseType.S1, CaseType.S2},
-                {CaseType.S2, CaseType.empty, CaseType.empty, CaseType.S1, CaseType.empty, CaseType.empty},
-                {CaseType.S5, CaseType.empty, CaseType.S3, CaseType.empty, CaseType.empty, CaseType.empty},
-                {CaseType.S4, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty},
-                {CaseType.empty, CaseType.S3, CaseType.S2, CaseType.empty, CaseType.S3, CaseType.empty},
-                {CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty}
+                {CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty},
+                {CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.S5, CaseType.empty},
+                {CaseType.empty, CaseType.empty, CaseType.S3, CaseType.S4, CaseType.S1, CaseType.S2},
+                {CaseType.S2, CaseType.S5, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty},
+                {CaseType.S3, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.S4, CaseType.empty},
+                {CaseType.S1, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty, CaseType.empty}
         };
         return grilleLevel3;
     }
 
-
-    //temporaire à changer une fois le menu fait !se
     public CaseType [][] getGrille(int levelselector) {
         return levels.get(levelselector).clone();
     }
