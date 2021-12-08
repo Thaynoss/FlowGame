@@ -1,14 +1,13 @@
 package Vue;
-import javax.swing.*;
 
 import Modele.CaseType;
 import Modele.ModeleCase;
 
-
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
+import javax.swing.*;
 
 public class VueCase extends JPanel {
+    
     private int x, y;
     private ModeleCase ModelC;
 
@@ -77,8 +76,6 @@ public class VueCase extends JPanel {
 
         g.drawRoundRect(getWidth()/4, getHeight()/4, getWidth()/2, getHeight()/2, 5, 5);
 
-        Rectangle2D deltaText =  g.getFont().getStringBounds("0", g.getFontMetrics().getFontRenderContext()); // "0" utilisé pour gabarit
-
         switch(ModelC.type) {
             case S1 :
                 g.setColor(Color.BLUE);
@@ -133,10 +130,5 @@ public class VueCase extends JPanel {
 
         }
     }
-
-    public String toString() {
-        return x + ", " + y;
-
-    }
-
+    
 }

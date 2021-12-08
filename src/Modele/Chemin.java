@@ -24,12 +24,12 @@ public class Chemin  {
         return chemin.size();
     }
 
-    //On vas ajouter une case au chemin
+    //On ajoute un chemin à une case
     public void ajoutCaseChemin(ModeleCase CaseAjout){
         chemin.add(CaseAjout);
     }
 
-    //Si les chemins tracé sont sur des cases vide, retourne vrai
+    //Retourne vrai si le chemin ajouté est sur une case vide
     public boolean appartientChemin(int c){
         if(chemin.get(c).type == CaseType.empty){
             return true;
@@ -57,12 +57,12 @@ public class Chemin  {
         } 
     }
 
-    //Pour supprimer une case on utilise la fonction remove de java
+    //Pour supprimer une case on utilise la fonction remove() de java
     public void DetruireCase(int index){
         chemin.remove(index);
     }
 
-    //Pour supprimer une liste on utilise la methode clear fournie par java
+    //Pour supprimer une liste on utilise la methode clear() fournie par java
     public void DetruireChemin(){
         chemin.clear();
     }

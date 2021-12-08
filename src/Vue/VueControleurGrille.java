@@ -48,37 +48,17 @@ public class VueControleurGrille extends JFrame implements Observer{
 
                     @Override
                     public void mousePressed(MouseEvent e) {
-                        //Point p = hashmap.get(e.getSource()); // (*) permet de récupérer les coordonnées d'une caseVue
                         isPress=true;
-                        //isSymbole=((ModeleCase)e.getSource()).isSymbole();  //Mettre modeleCase
                         isSymbole=((VueCase)e.getSource()).verifCaseSymbole();  
 
                         game.resetCaseEmpty( ((VueCase)e.getSource()).getModeleCase());
                         game.detruireCheminExiste( ((VueCase)e.getSource()).getModeleCase() );
 
                         game.debutChemin( ((VueCase)e.getSource()).getModeleCase() );
-                        
-
-                        //DEBUG
-                        System.out.println("nombre d'éléments dans chemin : " + 
-                                        game.getLongueurC() );
-
-                        System.out.println("type de la case : " + 
-                                        game.getTypeEl(game.getLongueurC() - 1) );
-                        System.out.println("chemin numéro : " + 
-                                        game.getIndex() );
-                        
-                        System.out.println("mousePressed : " + e.getSource() );
-                        //
-
-
-                        //((VueCase) e.getSource()).refreshCheminOnclick(); //refreshCheminOnClick :  a chaque clique refresh la case  => remplace rndType()
-                        System.out.println("mousePressed : " + e.getSource());
                     }
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
-                        // (**) - voir commentaire currentComponent
                         currentComponent = (JComponent) e.getSource();
                         isEnter=true;
                         
@@ -86,35 +66,24 @@ public class VueControleurGrille extends JFrame implements Observer{
                             game.resetCaseEmpty(((VueCase)e.getSource()).getModeleCase());
                         }
                         if (isPress && isSymbole) {
-                            game.resetCaseEmpty(((VueCase)e.getSource()).getModeleCase());
                             
-                            System.out.println("indice du chemin actuelle : " + game.getIndex());
+                            game.resetCaseEmpty(((VueCase)e.getSource()).getModeleCase());                          
 
                             game.debutChemin( ((VueCase)e.getSource()).getModeleCase() );
                             game.setJeuModeleCase();
 
-                            System.out.println(
-                                            "nombre d'éléments dans chemin : " + 
-                                            game.getLongueurC() );
-
-                            System.out.println("type : " + 
-                                            game.getTypeEl(game.getLongueurC() - 1));
                         }
-                        
-                        System.out.println("mouseEntered : " + e.getSource());
-                    }
 
+                    }
 
                     @Override
                     public void mouseReleased(MouseEvent e) {
-                        // (**) - voir commentaire currentComponent
-                         afficherChemin();
+                         // afficherChemin(); //Affiche dans la console le chemin que l'on parcourt
                          isPress=false;
                        
-
                         game.cheminEstVide();
-                        if(game.partieEstTerminee()) {
-                            
+                        if(game.partieEstTerminee()) {      
+                            System.out.print("Partie gagnée");                
                             System.exit(0);
                         }
 
@@ -122,10 +91,8 @@ public class VueControleurGrille extends JFrame implements Observer{
                             game.detruireChemin();
                         }
 
-                        System.out.println("mouseReleased : " + currentComponent);
                     }
                 });
-
 
             }
         }
@@ -146,8 +113,9 @@ public class VueControleurGrille extends JFrame implements Observer{
         refresh();
     }
 
-    //debug dans la console
 
+    //Fonction d'affichage pour la console
+    
     public void afficherChemin() {
         for(int i = 0; i < game.getLongueurC(); i++) {
             System.out.println(game.getTypeEl(i) + ", ");

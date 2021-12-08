@@ -15,14 +15,14 @@ public class ModeleCase {
         x = _x;
         y = _y;
         lvl=_lvl;
-        newLevel = new Level(lvl); /////// C'est ici que le level est set par défaut
+        newLevel = new Level(lvl); 
         grilleGen = newLevel.getGrille(lvl);
         initGrilleLevelSymbole(grilleGen);
 
     }
 
+    //Renvoie vrai si le type de la case est un chemin
     public boolean isCaseChemin() {
-
         if (type == CaseType.h0v1 || type == CaseType.h1v0 || type == CaseType.h0h1 || type == CaseType.h0v0
                 || type == CaseType.h1v1 || type == CaseType.v0v1 || type == CaseType.cross) {
             return true;
@@ -31,8 +31,8 @@ public class ModeleCase {
         }
     }
 
+    //Renvoie vrai si le type de la case est un symbole
     public boolean isSymbole() {
-
         if (type == CaseType.S1 || type == CaseType.S2 || type == CaseType.S3 ||
                 type == CaseType.S4 || type == CaseType.S5) {
             return true;
@@ -41,13 +41,13 @@ public class ModeleCase {
         }
     }
 
+    //Renvoie vrai si la case est de type empty
     public Boolean isCaseEmpty(){
         if(type==CaseType.empty){
             return true;
         }
         return false;
     }
-
 
 
     public int getx() {
@@ -66,22 +66,22 @@ public class ModeleCase {
         return type;
     }
 
-    // on a besoin de setcasetype pourmodifier le type des case dans la vue
+    //Permet de modifier le type des cases (se trouvant dans vueCase)
     public void setCaseType(CaseType typeCase) {
         this.type = typeCase;
     }
 
-    //permettra de supprimer tout la chemin
+    // Supprime le chemin 
     public void RemoveCaseToEMP() {
         type = CaseType.empty;
     }
 
-    //Initialise UNE CASE et non la grille
+    //Initialise une case
     public void CaseTypeInit(CaseType t) {
         type = t;
     }
 
-    //InitGrilleLevelSymbol permet d'init le symbole de n'importe quelle grille
+    //InitGrilleLevelSymbol permet d'initialiser la grille du niveau selectionner (passer en paramètre dans le constructeur)
     public void initGrilleLevelSymbole(CaseType[][] caseTL) {
         if (caseTL[this.x][this.y] == CaseType.S1) {
             CaseTypeInit(CaseType.S1);
@@ -100,6 +100,7 @@ public class ModeleCase {
         }
     }
 
+    //Dessine les chemins dans "le bon sens" , en se basant sur : la case précedente,la case actuel et la case sur laquelle on va
     public void drawCase(ModeleCase PreviousCase, ModeleCase NextCase) {
         if(isCaseEmpty()) {
             if(getx() == PreviousCase.getx() && getx() == NextCase.getx()) {
