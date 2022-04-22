@@ -4,10 +4,10 @@ public class ModeleCase {
 
     private int x, y; // pos x et y de la case
     public CaseType type; // type de la case
-    private int lvl;
+    private int lvl; // entier correspondand au numéro de level désirer
 
-    private Level newLevel;
-    private CaseType[][] grilleGen;
+    private Level newLevel; //utilisation de la class level
+    private CaseType[][] grilleGen; // tableau 2D permet de stocker le contenue des grilles de la class leve
 
     //Constructeur de ModeleCase
     public ModeleCase(int _x, int _y,CaseType typeCh,int _lvl) {
@@ -100,7 +100,8 @@ public class ModeleCase {
         }
     }
 
-    //Dessine les chemins dans "le bon sens" , en se basant sur : la case précedente,la case actuel et la case sur laquelle on va
+    //Dessine les chemins en fonction de la position de la case suivante et de la case précédente
+    //On dessine seulement si la case est vide (evite de dessiner sur d'autre chemein)
     public void drawCase(ModeleCase PreviousCase, ModeleCase NextCase) {
         if(isCaseEmpty()) {
             if(getx() == PreviousCase.getx() && getx() == NextCase.getx()) {

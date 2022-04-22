@@ -4,27 +4,31 @@ import java.util.ArrayList;
 
 public class Chemin  {
 
-    //on stocke les chemin dans un array list (on connait pas la taille du chemin)
-    //donc vaut mmieux un
-    public ArrayList<ModeleCase> chemin;
+   //on stocke les chemin dans un array list (on connait pas la taille du chemin)
+   // donc il vaut mieux utiliser un tableau dynamique
+    private ArrayList<ModeleCase> chemin;
 
+    //Constructeur de Chemin
     public Chemin (){
         chemin = new ArrayList<ModeleCase>();
     }
 
+    //Recupère la donné de la case du chemin en fonction de la positionX en paramétre
     public int getCasePosX(int posx) {
         return chemin.get(posx).getx();
     }
 
+    //Recupère la donné de la case du chemin en fonction de la positionY en paramétre
     public int getCasePosY(int posy) {
         return chemin.get(posy).gety();
     }
-
+    
+    //Recupére la taille du chemin (debug)
     public int RecupTailleChemin(){
         return chemin.size();
     }
 
-    //On ajoute un chemin à une case
+    //On ajoute une case à un chemin
     public void ajoutCaseChemin(ModeleCase CaseAjout){
         chemin.add(CaseAjout);
     }
@@ -37,17 +41,20 @@ public class Chemin  {
         return false;
     }
 
+    //Récupère le Modele de la case dans notre chemin (indice du chemin)
+    // -> indice du modèle :renvoie la valeur représenter par ce champs sur l'objet modifier
     public ModeleCase RecupModCase (int el){
         return chemin.get(el);
     }
 
+    //Récupère le Type de la case dans notre chemin 
+    // -> indice du type la case :renvoie la valeur représenter par ce champs sur l'objet modifier
     public CaseType RecupTypeC (int el){
         return chemin.get(el).type;
     }
 
-    //compare le premier element a l'indice 0 de la liste chemein et sur l'élement de cette liste on prend le type
-    //on recupére aussi le dernier element de ta liste donc le dernier index de ta liste et -1 car tableau
-    // Retourne vrai si le premier élément et le dernier élement sont identique
+
+    //Compare le premier element à l'indice 0 de la liste chemin avec l'avant dernier élément
     public boolean ValiderChemin(){
         if(chemin.size() == 0 || chemin.size() == 1) {
             return false;
@@ -57,12 +64,12 @@ public class Chemin  {
         } 
     }
 
-    //Pour supprimer une case on utilise la fonction remove() de java
+    //Pour supprimer une case 
     public void DetruireCase(int index){
         chemin.remove(index);
     }
 
-    //Pour supprimer une liste on utilise la methode clear() fournie par java
+    //On supprime tout les éléments d'une liste
     public void DetruireChemin(){
         chemin.clear();
     }

@@ -4,23 +4,24 @@ import java.util.ArrayList; //arraylist class
 
 public class Level{
 
-    private CaseType[][] grilleLevel1;
-    private CaseType[][] grilleLevel2;
-    private CaseType[][] grilleLevel3;
+    private CaseType[][] grilleLevel1; //Tableau 2D contenant des case type pour le niveau 1
+    private CaseType[][] grilleLevel2; //Tableau 2D contenant des case type pour le niveau 2
+    private CaseType[][] grilleLevel3; //Tableau 2D contenant des case type pour le niveau 3 ..
     public ArrayList<CaseType[][]> levels;
-    public int lvlSelectionner;
+    private int lvlSelectionner;
 
+    //Constructeur de Level
     public Level(int lvl_select){
         lvlSelectionner = lvl_select;
         levels = new ArrayList<CaseType[][]>();
-        grilleLevel1 = level1();
+        grilleLevel1 = level1();  //Appel des fonctions level ..
         grilleLevel2 = level2();
         grilleLevel3 = level3();
-
+                                 //Ajoute dans la liste
         levels.add(grilleLevel1);
         levels.add(grilleLevel2);
         levels.add(grilleLevel3);
-        getGrille(lvlSelectionner);
+        getGrille(lvlSelectionner); //Appel au récupérateur de la grille du niveau choisie 
     }
 
 
@@ -62,17 +63,9 @@ public class Level{
         return grilleLevel3;
     }
 
+    //Recupere la grille 
     public CaseType [][] getGrille(int levelselector) {
         return levels.get(levelselector).clone();
-    }
-
-    public int getGrilleTaille(int levelselector) {
-        CaseType[][] tableauTMP;
-          tableauTMP =levels.get(levelselector);
-          int tailleLVL = tableauTMP.length;
-          System.out.println(tailleLVL);
-          return tailleLVL;
-
     }
 
 }

@@ -1,18 +1,7 @@
-## Getting Started
+## Pour lancer le jeu 
+    Aller dans FlowGame/src/Vue/VueMenu.java
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Description
+    Le but du jeu est de reliées les cases de symboles identiques avec l'aide d'un chemin.
+    Pour ce faire, cliquer d'abord sur un symbole , et rester appuyer pour tracer un chemin jusqu'a l'autre symbole.
+    Il faut alors reliées toutes les cases de cette manière pour finir une partie. 

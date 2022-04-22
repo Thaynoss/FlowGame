@@ -19,8 +19,8 @@ public class VueMenu extends JFrame implements ActionListener {
 
     private String i="0";
     private JLabel numLevel;
-    private int j=Integer.parseInt(i);
-
+    private int j=Integer.parseInt(i); //Convertie le string i en entier j
+ 
     private JLabel titre = new JLabel("FlowGame LIFAP7");
     private JButton b1= new JButton("-");
     private JButton b2=new JButton("+");
@@ -67,12 +67,12 @@ public class VueMenu extends JFrame implements ActionListener {
         if(composant=="-"){
             j=MM.decrementer(j);
             i=Integer.toString(j); 
-            numLevel.setText(i);
+            numLevel.setText(i); //On fait une étape de convertion de type , et on le set dans le label numLevel
         }
         if(composant=="+"){
             j=MM.incremente(j);
             i=Integer.toString(j);
-            numLevel.setText(i);            
+            numLevel.setText(i); //On fait une étape de convertion de type , et on le set dans le label numLevel  
         }    
         else if(composant=="Valider"){
             Jeu game = new Jeu(6,5,j);
