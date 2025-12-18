@@ -1,24 +1,50 @@
 package Modele;
 
-import java.awt.*;
-import java.security.cert.TrustAnchor;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Observable;
 
+/**
+ * Classe principale du modèle de jeu Flow.
+ * Gère la grille, les chemins et la logique du jeu.
+ * 
+ * @author Groupe 17
+ * @version 1.0
+ */
+@SuppressWarnings("deprecation")
 public class Jeu extends Observable {
 
-    private Chemin cheminJeu[];  //Tableau 1D contenant un chemin 
-    private ModeleCase [][] grilleLVL; //Tableau 2D contenant le level que l'on va initialiser
-    private CaseType[][] grilleGen; //Tableau 2D contenant les Types que l'on va instancier dans grilleLVL
-    private Level level; //On prépare le contenu de la class Level 
-    private int tailleGrilleLvl; //Designe la taille la grille
-    private int nombreCheminLvl; //Nombre de chemin contenu dans la grille
-    private int index; //Indice pour le tableau de chemin 
-    private int lvl; //Correspond au numero du niveau  
+    /** Tableau contenant les chemins du jeu */
+    private Chemin cheminJeu[];
+    
+    /** Grille contenant les cases du niveau */
+    private ModeleCase[][] grilleLVL;
+    
+    /** Grille contenant les types de cases à initialiser */
+    private CaseType[][] grilleGen;
+    
+    /** Niveau sélectionné */
+    private Level level;
+    
+    /** Taille de la grille du niveau */
+    private int tailleGrilleLvl;
+    
+    /** Nombre de chemins dans le niveau */
+    private int nombreCheminLvl;
+    
+    /** Index du chemin actuellement sélectionné */
+    private int index;
+    
+    /** Numéro du niveau */
+    private int lvl;
 
-    //Constructeur de Jeu 
-    public Jeu( int tailleGrille, int nombreChemin,int num_lvl) {
+    /**
+     * Constructeur du jeu.
+     * Initialise la grille et les chemins pour le niveau spécifié.
+     * 
+     * @param tailleGrille Taille de la grille (nombre de cases par côté)
+     * @param nombreChemin Nombre de chemins dans le niveau
+     * @param num_lvl Numéro du niveau à charger
+     */
+    public Jeu(int tailleGrille, int nombreChemin, int num_lvl) {
         tailleGrilleLvl = tailleGrille;
         nombreCheminLvl = nombreChemin;
         index = 0; //Initialement à zero
@@ -46,19 +72,32 @@ public class Jeu extends Observable {
         }
     }
 
-    //RecupCaseXJeu équivaut à un get de la case dans sa position X à un index préciser ultérieurement
-    public int RecupCaseXJeu (int p){
+    /**
+     * Récupère la position X d'une case du chemin actuel.
+     * 
+     * @param p Position dans le chemin
+     * @return Position X de la case
+     */
+    public int RecupCaseXJeu(int p) {
         return cheminJeu[index].getCasePosX(p);
     }
 
-    //Comme RecupCaseXJeu, mais avec la position Y
-    public int RecupCaseYJeu (int p){
+    /**
+     * Récupère la position Y d'une case du chemin actuel.
+     * 
+     * @param p Position dans le chemin
+     * @return Position Y de la case
+     */
+    public int RecupCaseYJeu(int p) {
         return cheminJeu[index].getCasePosY(p);
     }
 
-
-    //Retourne l'index de la case si ce dernier equivaut au ModeleCase demander
-    // sinon renvoie l'index actuelle
+    /**
+     * Retourne l'index du chemin correspondant au type de case donné.
+     * 
+     * @param Mc ModeleCase dont on cherche le chemin
+     * @return Index du chemin ou index actuel si non trouvé
+     */
     public int getCaseIndex(ModeleCase Mc) {
         for(int i = 0; i < index; i++) {
             if(cheminJeu[i].RecupTypeC(0) == Mc.getCaseType()) {
@@ -68,59 +107,104 @@ public class Jeu extends Observable {
         return index;
     }
     
-    //int el -> position element 
-    // retourne le type de la case issue de le position de l'élément demandé
-    public CaseType getTypeEl(int el){
+    /**
+     * Récupère le type d'une case dans le chemin actuel.
+     * 
+     * @param el Position de l'élément dans le chemin
+     * @return Type de la case
+     */
+    public CaseType getTypeEl(int el) {
         return cheminJeu[index].RecupTypeC(el);
     }
     
-    // retourne le type de la case issue de le position de l'élément demandé et de son index
-    public CaseType getTypeElind(int el,int _index){
+    /**
+     * Récupère le type d'une case dans un chemin spécifié.
+     * 
+     * @param el Position de l'élément dans le chemin
+     * @param _index Index du chemin
+     * @return Type de la case
+     */
+    public CaseType getTypeElind(int el, int _index) {
         return cheminJeu[_index].RecupTypeC(el);
     }
-    
 
-    //Debug
-    //Recupere la longueur du chemin en fonction de son indice
+    /**
+     * Récupère la longueur d'un chemin spécifié.
+     * 
+     * @param ind Index du chemin
+     * @return Longueur du chemin
+     */
     public int getLongueur(int ind) {
         return cheminJeu[ind].RecupTailleChemin();
     }
 
-    //Retourne la taille du chemin du jeu
-    public int getLongueurC(){
-        if (index< 5){  //index Inferieur au nombre de symbole
+    /**
+     * Retourne la taille du chemin actuel.
+     * 
+     * @return Taille du chemin ou 0 si index invalide
+     */
+    public int getLongueurC() {
+        if (index < 5) {
             return cheminJeu[index].RecupTailleChemin();
-        }else{
+        } else {
             return 0;
         }
     }
 
-    //Recupere le chemin
-    public Chemin getChemin(){
+    /**
+     * Récupère le chemin actuel.
+     * 
+     * @return Le chemin actuel
+     */
+    public Chemin getChemin() {
         return cheminJeu[index];
     }
 
-    //Recupere le modele de la case en fonction d'une position X et Y.
-    public ModeleCase RecupModelcase (int posX, int posY){
+    /**
+     * Récupère le modèle d'une case à une position donnée.
+     * 
+     * @param posX Position X
+     * @param posY Position Y
+     * @return ModeleCase à cette position
+     */
+    public ModeleCase RecupModelcase(int posX, int posY) {
         return grilleLVL[posX][posY];
     }
 
-    //Recupere le modele de la case en fonction de la position de l'element
-    public ModeleCase getModelCase(int el){
+    /**
+     * Récupère le modèle d'une case dans le chemin actuel.
+     * 
+     * @param el Position dans le chemin
+     * @return ModeleCase à cette position
+     */
+    public ModeleCase getModelCase(int el) {
         return cheminJeu[index].RecupModCase(el);
     }
     
-    //Modifie l'indice 
+    /**
+     * Modifie l'index du chemin actuel.
+     * 
+     * @param Id Nouvel index
+     */
     private void setIndex(int Id) {
         index = Id;
     }
 
-    //Pour detruire une case du chemin 
-    public void DetruireCase(int i){
+    /**
+     * Détruit une case du chemin actuel.
+     * 
+     * @param i Index de la case à détruire
+     */
+    public void DetruireCase(int i) {
         cheminJeu[index].DetruireCase(i);
     }
 
-    // Retourne vrai si une la premiere case est identique à la dernière
+    /**
+     * Vérifie si le chemin est terminé (première et dernière cases identiques).
+     * 
+     * @param i Index du chemin
+     * @return true si le chemin est terminé, false sinon
+     */
     public boolean caseEstIdentique(int i){
         boolean identique = false;
         identique = getModelCase(i).equals(getModelCase(getLongueurC() - 1) );
@@ -197,15 +281,23 @@ public class Jeu extends Observable {
         cheminJeu[index].DetruireChemin();
     }
 
-    // Détruit le chemin si le chemin existe et qu'on clique sur le chemin
-    public void detruireCheminExiste(ModeleCase MC){
+    /**
+     * Détruit le chemin existant si la case en fait partie.
+     * 
+     * @param MC ModeleCase à vérifier
+     */
+    public void detruireCheminExiste(ModeleCase MC) {
         if(CheminExiste(MC)){
             setIndex(getCaseIndex(MC));
             detruireChemin();
         }
     }
 
-    // Efface le chemin qui appartient à la case et le 
+    /**
+     * Efface le chemin associé à une case (sans les symboles de début/fin).
+     * 
+     * @param Mc ModeleCase dont il faut effacer le chemin
+     */
     public void effacerChemin(ModeleCase Mc) {
         if (appartientChemin(Mc)) {
             for (int i = 1; i < getLongueurC() - 1; i++) {
@@ -214,8 +306,12 @@ public class Jeu extends Observable {
         }
     }
 
-    //Remet la case à vide
-    public void resetCaseEmpty(ModeleCase MC){
+    /**
+     * Remet une case à l'état vide si elle contient un chemin.
+     * 
+     * @param MC ModeleCase à réinitialiser
+     */
+    public void resetCaseEmpty(ModeleCase MC) {
         if(MC.isCaseChemin()){
             grilleLVL[MC.getx()][MC.gety()].RemoveCaseToEMP();
             setChanged();
@@ -223,8 +319,10 @@ public class Jeu extends Observable {
         }
     }
 
-    
-    public void cheminEstVide(){
+    /**
+     * Vérifie si le chemin actuel est vide et gère les cas spéciaux.
+     */
+    public void cheminEstVide() {
         if (cheminTermine(index) && (getLongueurC() != 1)) {
             while(getLongueurC() != 0) {
                 IndexIncrement();
@@ -237,23 +335,31 @@ public class Jeu extends Observable {
         }
     }
 
-    //Retourne vrai si la partie est termine => toute les cases ne sont plus en empty 
-    // et chaque paire de symbole sont reliées dans la grille
-    public boolean partieEstTerminee(){
-        Boolean grilleFull = false;
-
-        for(int i = 0; i <tailleGrilleLvl; i++) {
-            for(int j = 0; j <tailleGrilleLvl; j++) {
+    /**
+     * Vérifie si la partie est terminée.
+     * La partie est gagnée si toutes les cases sont remplies et tous les chemins sont valides.
+     * 
+     * @return true si la partie est terminée, false sinon
+     */
+    public boolean partieEstTerminee() {
+        // Vérifier que toutes les cases sont remplies
+        for(int i = 0; i < tailleGrilleLvl; i++) {
+            for(int j = 0; j < tailleGrilleLvl; j++) {
                 if(grilleLVL[i][j].getCaseType() == CaseType.empty) {
-                    grilleFull = false;
+                    return false; // Il reste des cases vides
                 }
             }
         }
-        grilleFull = true;
-
-        return grilleFull && cheminJeu[0].ValiderChemin() &&  
-               cheminJeu[1].ValiderChemin() && cheminJeu[2].ValiderChemin() &&
-               cheminJeu[3].ValiderChemin() && cheminJeu[4].ValiderChemin();
+        
+        // Vérifier que tous les chemins sont validés
+        for(int i = 0; i < nombreCheminLvl; i++) {
+            if(!cheminJeu[i].ValiderChemin()) {
+                return false; // Un chemin n'est pas valide
+            }
+        }
+        
+        // Tout est rempli et tous les chemins sont valides
+        return true;
     }   
 
 }

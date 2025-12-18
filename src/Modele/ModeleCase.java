@@ -1,102 +1,147 @@
 package Modele;
 
+/**
+ * Modèle d'une case de la grille.
+ * Contient les informations de position et de type de la case.
+ * 
+ * @author Groupe 17
+ * @version 1.0
+ */
 public class ModeleCase {
 
-    private int x, y; // pos x et y de la case
-    public CaseType type; // type de la case
-    private int lvl; // entier correspondand au numéro de level désirer
+    /** Position X de la case */
+    private int x;
+    
+    /** Position Y de la case */
+    private int y;
+    
+    /** Type de la case */
+    public CaseType type;
 
-    private Level newLevel; //utilisation de la class level
-    private CaseType[][] grilleGen; // tableau 2D permet de stocker le contenue des grilles de la class leve
+    /** Générateur de niveau */
+    private Level newLevel;
+    
+    /** Grille générée du niveau */
+    private CaseType[][] grilleGen;
 
-    //Constructeur de ModeleCase
-    public ModeleCase(int _x, int _y,CaseType typeCh,int _lvl) {
+    /**
+     * Constructeur d'une case.
+     * 
+     * @param x Position X
+     * @param y Position Y
+     * @param typeCh Type initial de la case
+     * @param lvl Numéro du niveau
+     */
+    public ModeleCase(int x, int y, CaseType typeCh, int lvl) {
         type = typeCh;
-        x = _x;
-        y = _y;
-        lvl=_lvl;
-        newLevel = new Level(lvl); 
+        this.x = x;
+        this.y = y;
+        newLevel = new Level(lvl);
         grilleGen = newLevel.getGrille(lvl);
         initGrilleLevelSymbole(grilleGen);
-
     }
 
     //Renvoie vrai si le type de la case est un chemin
     public boolean isCaseChemin() {
-        if (type == CaseType.h0v1 || type == CaseType.h1v0 || type == CaseType.h0h1 || type == CaseType.h0v0
-                || type == CaseType.h1v1 || type == CaseType.v0v1 || type == CaseType.cross) {
-            return true;
-        } else {
-            return false;
-        }
+        return type == CaseType.h0v1 || type == CaseType.h1v0 || type == CaseType.h0h1 
+            || type == CaseType.h0v0 || type == CaseType.h1v1 || type == CaseType.v0v1 
+            || type == CaseType.cross;
     }
 
-    //Renvoie vrai si le type de la case est un symbole
+    /**
+     * Vérifie si la case contient un symbole de départ/arrivée.
+     * 
+     * @return true si c'est un symbole, false sinon
+     */
     public boolean isSymbole() {
-        if (type == CaseType.S1 || type == CaseType.S2 || type == CaseType.S3 ||
-                type == CaseType.S4 || type == CaseType.S5) {
-            return true;
-        } else {
-            return false;
-        }
+        return type == CaseType.S1 || type == CaseType.S2 || type == CaseType.S3
+            || type == CaseType.S4 || type == CaseType.S5;
     }
 
-    //Renvoie vrai si la case est de type empty
-    public Boolean isCaseEmpty(){
-        if(type==CaseType.empty){
-            return true;
-        }
-        return false;
+    /**
+     * Vérifie si la case est vide.
+     * 
+     * @return true si la case est vide, false sinon
+     */
+    public Boolean isCaseEmpty() {
+        return type == CaseType.empty;
     }
 
-
+    /**
+     * Récupère la position X.
+     * 
+     * @return Position X
+     */
     public int getx() {
         return this.x;
     }
 
+    /**
+     * Récupère la position Y.
+     * 
+     * @return Position Y
+     */
     public int gety() {
         return this.y;
     }
 
+    /**
+     * Définit le type de la case (méthode obsolète, utiliser setCaseType).
+     * 
+     * @param t Nouveau type
+     * @deprecated Utiliser setCaseType à la place
+     */
+    @Deprecated
     public void getCaseType(CaseType t) {
         type = t;
     }
 
+    /**
+     * Récupère le type de la case.
+     * 
+     * @return Type de la case
+     */
     public CaseType getCaseType() {
         return type;
     }
 
-    //Permet de modifier le type des cases (se trouvant dans vueCase)
+    /**
+     * Définit le type de la case.
+     * 
+     * @param typeCase Nouveau type de case
+     */
     public void setCaseType(CaseType typeCase) {
         this.type = typeCase;
     }
 
-    // Supprime le chemin 
+    /**
+     * Supprime le chemin et remet la case à vide.
+     */
     public void RemoveCaseToEMP() {
         type = CaseType.empty;
     }
 
-    //Initialise une case
+    /**
+     * Initialise le type de la case.
+     * 
+     * @param t Type à initialiser
+     */
     public void CaseTypeInit(CaseType t) {
         type = t;
     }
 
-    //InitGrilleLevelSymbol permet d'initialiser la grille du niveau selectionner (passer en paramètre dans le constructeur)
+    /**
+     * Initialise les symboles de la grille selon le niveau sélectionné.
+     * 
+     * @param caseTL Grille de types de cases du niveau
+     */
     public void initGrilleLevelSymbole(CaseType[][] caseTL) {
-        if (caseTL[this.x][this.y] == CaseType.S1) {
-            CaseTypeInit(CaseType.S1);
-        }
-        if (caseTL[this.x][this.y] == CaseType.S2) {
-            CaseTypeInit(CaseType.S2);
-        }
-        if (caseTL[this.x][this.y] == CaseType.S3) {
-            CaseTypeInit(CaseType.S3);
-        }
-        if (caseTL[this.x][this.y] == CaseType.S4) {
-            CaseTypeInit(CaseType.S4);
-        }
-        if (caseTL[this.x][this.y] == CaseType.S5) {
-            CaseTypeInit(CaseType.S5);
+        CaseType typeAtPosition = caseTL[this.x][this.y];
+        
+        if (typeAtPosition == CaseType.S1 || typeAtPosition == CaseType.S2 
+            || typeAtPosition == CaseType.S3 || typeAtPosition == CaseType.S4 
+            || typeAtPosition == CaseType.S5) {
+            CaseTypeInit(typeAtPosition);
         }
     }
 
